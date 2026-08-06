@@ -1,0 +1,111 @@
+# strategus-study-template
+
+GitHub template repository for **Strategus-based** observational studies on an
+OMOP CDM v5.4 SQL Server database in the Duke Vascular Informatics workspace.
+
+Use this when cohort logic belongs in **declarative circe cohort definitions**
+(`inst/cohorts/*.json`) executed by the OHDSI HADES
+[Strategus](https://ohdsi.github.io/Strategus/) framework.
+
+Use [`synthea-omop-template`](https://github.com/Duke-Vascular-Informatics/synthea-omop-template)
+instead when you need the numbered `workflow/01–08` scaffold — Synthea generation,
+ETL, QC — or a `-synth` data-generation-only repo.
+
+---
+
+## Lineage
+
+This template layers on the upstream OHDSI
+[`ohdsi-studies/StrategusStudyRepoTemplate`](https://github.com/ohdsi-studies/StrategusStudyRepoTemplate)
+rather than replacing it. Its guides are vendored unchanged in `docs/`:
+
+| File | From | Read it for |
+|---|---|---|
+| `docs/UsingThisTemplate.md` | upstream OHDSI | Network-study roles, ATLAS cohort download, results data model, EvidenceSynthesis |
+| `docs/StudyExecution.md` | upstream OHDSI | What a participating **site** runs |
+| **`docs/STRATEGUS_CONVENTIONS.md`** | **this workspace** | **The workspace layer. Read this first.** |
+| **`docs/CIRCE_ESCAPE_HATCH.md`** | **this workspace** | What to do when circe cannot express a cohort |
+
+`STRATEGUS_CONVENTIONS.md` is the reason this template exists. Every item in it is
+a defect that reached a real run in one of four studies, with the workaround
+already applied here and the rationale recorded so nobody reverts it. Reading it
+takes ten minutes; rediscovering it took months.
+
+## What this template ships
+
+```
+CreateStrategusAnalysisSpecification.R   step 1 — build the analysis spec
+StrategusCodeToRun.R                     step 2 — devcontainer synthetic pre-flight
+scripts/render_cohort_sql.R              step 0 — circe JSON -> OHDSI SQL
+inst/Cohorts.csv                         cohort manifest + rationale
+inst/cohorts/                            circe cohort expressions
+inst/sql/sql_server/                     rendered SQL (CohortGenerator artifact)
+docs/                                    upstream OHDSI guides + workspace conventions
+CHECKLIST.md                             new study (Path A) / conversion (Path B)
+renv.lock                                Strategus 1.5.0, pinned — 209 packages
+```
+
+Module settings arrive with the known-good configuration already applied:
+Characterization's three SQL-Server-incompatible sub-analyses disabled,
+`runInclusionStatistics = FALSE` for Duke PRCC's backslash schema,
+`minPriorObservation = 0`, CohortDiagnostics scoped to analytic cohorts,
+CohortIncidence unstratified. Each carries a comment and a conventions
+cross-reference. **They are workarounds, not preferences — do not flip them
+without reading why.**
+
+## Quick start
+
+```bash
+# 1. Create your repo from this template, then clone it as a sibling of the
+#    other study repos in the workspace folder.
+BRANCH=$(gh api user --jq .login)
+git checkout -b "$BRANCH"
+
+# 2. Restore the pinned environment, then reapply the Characterization patch
+#    (conventions §1.1 — it is lost on every renv::restore).
+Rscript -e 'renv::restore()'
+
+# 3. Work through CHECKLIST.md — Path A for a new study, Path B to convert an
+#    existing synthea-omop-template study.
+
+# 4. Then the pipeline, inside the dev container:
+Rscript scripts/render_cohort_sql.R
+Rscript CreateStrategusAnalysisSpecification.R
+docker exec -e IN_DEV_CONTAINER=true -w /workspace/<study> \
+  omop_dev-devcontainer-1 Rscript StrategusCodeToRun.R
+```
+
+Find everything that needs a decision:
+
+```bash
+grep -rn "TODO \[STUDY\]" . --include="*.R" --include="*.csv"
+```
+
+## Reference implementations
+
+Read a real one alongside the template. They differ deliberately:
+
+| Repo | Shape | Read it for |
+|---|---|---|
+| `pad-oler-aki-desc` | Pure Strategus, no `config.R` | The minimal case |
+| `pad-ler-ldl-desc` | Pure Strategus, circe-authored cohorts | Circe JSON authored in-repo rather than exported from ATLAS |
+| `pad-amp-ed-desc` | **Hybrid** — Strategus + custom step + Word report | The `synthea-omop-template` → Strategus **conversion** precedent, and a custom Kaplan-Meier step replacing CohortIncidence |
+| `pad-amp-nhd-prog` | Hybrid, integer risk scores | The **circe escape hatch** (cohort `9100001`), the local cohort-id block, and the reference standard for `inst/Cohorts.csv` rationale |
+
+## Non-negotiables
+
+- **Rule 1 applies unchanged.** Every concept ID entering a cohort JSON passes the
+  three-tier lookup and carries `[vocab query]`. Check
+  `../phenotype_library/catalog.yaml` first.
+- **Run everything in the dev container**, never on the host.
+- **Push to your own branch**, then open a PR into `main`. Never push to `main`,
+  never to another collaborator's branch.
+- **No PHI on disk.** Outputs are aggregate only; `results/` is gitignored.
+- **Never make an OSF project public** or mint a DOI — manual, post-approval,
+  human-only steps.
+- **The `[DVI]` tooling is read-only.** Creating an ATLAS cohort is a separate,
+  explicit, user-initiated action.
+
+## License
+
+Apache 2.0, matching the other repos in this workspace.
