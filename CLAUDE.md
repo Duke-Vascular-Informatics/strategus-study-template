@@ -21,6 +21,14 @@ Shared baseline (applies first):
   reference studies have neither. Add them only when a custom step or report
   needs schema names, cohort ids, or narrative metadata that Strategus itself
   does not — see `docs/STRATEGUS_CONVENTIONS.md` §11.
+- **Strategus produces no manuscript figures.** Results are tables in a results
+  schema, browsed via the OHDSI Shiny viewer — not the journal submission path.
+  Manuscript figures only exist if the study adds a custom step / Word report
+  (the `pad-amp-ed-desc` hybrid pattern). When it does, every figure must draw
+  its series styling from `R/figure_style.R`: colour, linetype **and** shape,
+  never colour alone, because journals print greyscale and equal-luminance hues
+  collapse to one grey. See `docs/FIGURES.md`. If the study has no report step,
+  nothing sources that file and it costs nothing.
 
 ### Before changing any module setting
 
