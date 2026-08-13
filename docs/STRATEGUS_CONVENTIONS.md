@@ -150,8 +150,37 @@ Vocabulary tables are never redistributed through the registry; see
 
 | Range | Meaning |
 |---|---|
-| `1796xxx`–`1797xxx` | Assigned by the ATLAS demo instance. Use the real ATLAS id as the `cohort_id`. |
-| **`9100001`–`9100029`** | **Local block.** Cohorts authored in-repo and **not yet in ATLAS**. Deliberately outside the ATLAS range so a future ATLAS assignment cannot collide. |
+| `179xxxx`–`189xxxx` | Assigned by the ATLAS demo instance. Use the real ATLAS id as the `cohort_id`. The observed span across this workspace runs 1,791,885 (`pad-oler-aki-desc`) to 1,890,979 (the 2026-07-22 `[DVI]` sweep) and grows over time — treat it as "whatever ATLAS hands you", not a fixed window. |
+| **`9100001`–`9100999`** | **Local block.** Cohorts authored in-repo and **not yet in ATLAS**. Deliberately outside the ATLAS range so a future ATLAS assignment cannot collide. |
+
+**This table is the only place the local block's literal bounds are written down.**
+Everywhere else — this repo's other files, and every study repo's
+`logic_description` provenance text — refers to it as "the reserved local id
+block (see `STRATEGUS_CONVENTIONS.md` §6)". That indirection is deliberate:
+the block was widened from `9100001`–`9100029` on 2026-08-13 and the old bound
+had been copied verbatim into ~10 `logic_description` fields in
+`pad-amp-nhd-prog/inst/Cohorts.csv`, plus four files here, all of which went
+stale at once. Do not reintroduce a hard-coded range outside this table.
+
+Headroom, so the next person does not have to re-derive it: ATLAS-demo's highest
+assigned id as of the 2026-07-22 `[DVI]` sweep is 1,890,979, so the local block
+sits ~7.2M clear of it, and `cohort_definition_id` is `INT` (max 2,147,483,647).
+Widening further is cheap; there is no technical reason 999 slots is the limit.
+
+### 6.1 Allocation ledger
+
+One row per repo that has claimed part of the local block. **Add a row before
+authoring your first local-block cohort.** This exists so allocation does not
+require grepping every study repo to discover what is already taken — which is
+how the near-collision that prompted the 2026-08-13 widening was found.
+
+| Range | Repo | Notes |
+|---|---|---|
+| `9100001`–`9100011` | `pad-amp-nhd-prog` | NHD outcome (`9100001`, circe escape hatch) + 10 risk-score item cohorts |
+| `9100101`–`9100199` | `pad-oler-ssi-prog` | Anderson SSI score items + wound-complication outcome subtypes |
+
+Leave a gap between claims rather than packing them — a study that grows by one
+cohort should not have to interleave into another study's range.
 
 Rules:
 
