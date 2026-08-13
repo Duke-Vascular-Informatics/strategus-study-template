@@ -33,8 +33,11 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
       run before registering anything as new
 
 ### 2. Cohorts
-- [ ] Cohort ids allocated — real ATLAS id, or the local `9100001`–`9100029`
-      block for not-yet-in-ATLAS (conventions §6)
+- [ ] Cohort ids allocated — real ATLAS id, or an id from the reserved local
+      block for not-yet-in-ATLAS (conventions §6 for the bounds)
+- [ ] **Range claimed in the conventions §6.1 allocation ledger** before any
+      local-block cohort is authored, so the next study does not have to grep
+      every repo to find what is taken
 - [ ] Every cohort named `[DVI] …`, with no `\ / : * ? < > | "` in the name
 - [ ] For each reused `[DVI]` cohort: **concept set actually read**, and its
       `Limit`/`EndStrategy` consequences recorded (conventions §7)

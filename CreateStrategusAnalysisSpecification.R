@@ -57,8 +57,9 @@ cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
 if (any(duplicated(cohortDefinitionSet$cohortId))) stop("*** duplicate cohort IDs ***")
 
 # TODO [STUDY]: assign the cohort roles. Ids must match inst/Cohorts.csv.
-#   Use the real ATLAS id (1796xxx-1797xxx) for ATLAS cohorts, or the local
-#   9100001-9100029 block for cohorts not yet in ATLAS — conventions §6.
+#   Use the real ATLAS id for ATLAS cohorts, or an id from the reserved local
+#   block for cohorts not yet in ATLAS. Conventions §6 holds the block's bounds
+#   and the allocation ledger — claim your range there before authoring.
 targetId   <- 0L          # TODO [STUDY]
 outcomeIds <- c(0L)       # TODO [STUDY]
 

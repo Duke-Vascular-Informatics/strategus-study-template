@@ -82,8 +82,11 @@ The short list, in the order they bite:
   for a specific score item. Read the concept set before reusing.
 - **The Characterization `attr_reason` patch is lost on every `renv::restore()`**
   and must be reapplied. Conventions §1.1.
-- **Cohort ids:** real ATLAS id, or the local `9100001–9100029` block for
-  not-yet-in-ATLAS. Name everything `[DVI] …` from the start. Conventions §6.
+- **Cohort ids:** real ATLAS id, or an id from the reserved local block for
+  not-yet-in-ATLAS. Name everything `[DVI] …` from the start. Conventions §6
+  holds the bounds and the §6.1 allocation ledger — claim a range there first,
+  and never hard-code the bounds anywhere else (that is what went stale in
+  2026-08-13's widening).
 
 ### Version Control Routing
 
