@@ -28,6 +28,52 @@ Read this before changing `CreateStrategusAnalysisSpecification.R` or
 `renv.lock` in this template is the working set from `pad-amp-nhd-prog`. Run
 `renv::restore()` before anything else.
 
+### 1.0 First, create the project library directory, or renv will not activate
+
+**In a fresh clone this must happen BEFORE `renv::restore()`:**
+
+```bash
+# Inside the dev container, from the repo root. The path is platform-specific;
+# renv reports it as .libPaths()[1] once it activates.
+mkdir -p renv/library/linux-ubuntu-noble/R-4.5/aarch64-unknown-linux-gnu renv/staging
+```
+
+Git does not track empty directories, so a fresh clone from this template has
+`renv/activate.R` and `renv/settings.json` but **no `renv/library/`**. In this dev
+container renv's bootstrap cannot create it, and the failure is quiet and
+actively misleading:
+
+```
+# Bootstrapping renv 1.1.8
+- Using renv 1.1.8 from global package cache
+Warning: 'recursive' will be ignored as 'to' is not a single existing directory
+Warning: Failed to find an renv installation: the project will not be loaded.
+...
+cannot rename '/usr/local/lib/R/site-library/renv' to '...renv-trash.../renv',
+  reason 'Invalid cross-device link'
+```
+
+renv then falls back to the **system** library, and `renv::restore()` reports
+`Successfully installed 182 packages` and **exit 0** while leaving the project
+library empty. Everything afterwards silently resolves against
+`/usr/local/lib/R/site-library`, whose versions are NOT the pinned ones — in
+`pad-oler-ssi-prog` on 2026-08-13 that meant Characterization **4.0.0** loading
+while this lockfile pins **3.0.1**.
+
+That is worse than a hard failure, because 4.0.0 has both bugs below already
+fixed upstream (`attr_reason` is already `VARCHAR(200)`, and zero shipped SQL
+files contain `IFNULL`). Anyone checking the installed package in that state
+would reasonably conclude §1.1 and §2 are stale and delete the workarounds — and
+they are not stale, they are correct for the pinned 3.0.1, which does ship
+`VARCHAR(50)` and does still have `IFNULL` in the two RiskFactor extraction
+files.
+
+**Verify activation rather than trusting restore's exit code:**
+
+```bash
+Rscript -e 'cat(.libPaths()[1], "\n")'   # must be renv/library/..., NOT site-library
+```
+
 ### 1.1 The Characterization `attr_reason` patch — reapply after every `renv::restore()`
 
 Characterization 3.0.1 declares `attr_reason VARCHAR(50)` in

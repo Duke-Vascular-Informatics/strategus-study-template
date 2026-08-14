@@ -61,14 +61,25 @@ without reading why.**
 BRANCH=$(gh api user --jq .login)
 git checkout -b "$BRANCH"
 
-# 2. Restore the pinned environment, then reapply the Characterization patch
-#    (conventions §1.1 — it is lost on every renv::restore).
-Rscript -e 'renv::restore()'
+# 2. Create the project library FIRST. Git does not track empty directories, so a
+#    fresh clone has no renv/library/ — and without it renv silently falls back to
+#    the system library, where the package versions are NOT the pinned ones.
+#    restore() still exits 0 and reports success. Conventions §1.0.
+mkdir -p renv/library/linux-ubuntu-noble/R-4.5/aarch64-unknown-linux-gnu renv/staging
 
-# 3. Work through CHECKLIST.md — Path A for a new study, Path B to convert an
+# 3. Restore the pinned environment, then CHECK WHICH LIBRARY IT USED before
+#    trusting it. Must print renv/library/..., not /usr/local/lib/R/site-library.
+Rscript -e 'renv::restore()'
+Rscript -e 'cat(.libPaths()[1], "\n")'
+
+# 4. Reapply the Characterization patch (conventions §1.1 — lost on every
+#    renv::restore). Confirm it landed in the PROJECT library, not the system one.
+Rscript -e 'p <- system.file("sql/sql_server/CreateTargetCohortTable.sql", package = "Characterization"); x <- readLines(p); writeLines(gsub("VARCHAR(50)", "VARCHAR(200)", x, fixed = TRUE), p); message("patched: ", p)'
+
+# 5. Work through CHECKLIST.md — Path A for a new study, Path B to convert an
 #    existing synthea-omop-template study.
 
-# 4. Then the pipeline, inside the dev container:
+# 6. Then the pipeline, inside the dev container:
 Rscript scripts/render_cohort_sql.R
 Rscript CreateStrategusAnalysisSpecification.R
 docker exec -e IN_DEV_CONTAINER=true -w /workspace/<study> \
