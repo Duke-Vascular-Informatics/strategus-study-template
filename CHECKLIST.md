@@ -15,7 +15,13 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
       sibling of the other study repos (**not** a submodule, **not** added to the
       workspace root's index)
 - [ ] Working on your own branch: `BRANCH=$(gh api user --jq .login)`
+- [ ] **`renv/library/<platform>/` + `renv/staging` created FIRST** — git does not
+      track empty dirs, so a fresh clone has none and renv silently falls back to
+      the system library. Conventions §1.0
 - [ ] `renv::restore()` completed
+- [ ] **Activation verified, not assumed:** `Rscript -e 'cat(.libPaths()[1])'` shows
+      `renv/library/...`, not `/usr/local/lib/R/site-library`. `restore()` exits 0
+      and claims success even when it installed into the wrong library
 - [ ] Characterization `attr_reason` patch reapplied — conventions §1.1
 - [ ] `docs/UsingThisTemplate.md` / `docs/StudyExecution.md` (upstream OHDSI) skimmed
 
