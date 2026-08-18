@@ -53,6 +53,22 @@ CohortIncidence unstratified. Each carries a comment and a conventions
 cross-reference. **They are workarounds, not preferences — do not flip them
 without reading why.**
 
+## The report is a separate repo
+
+A repo created from this template is the **analysis core only** (bucket 2 of
+`docs/MIGRATION_PLAN_REPO_SPLIT.md` in `omop-dev-workspace`) and must stay
+Strategus-faithful: no `ggplot2`, `officer`, or `flextable` import for
+reporting purposes, ever, and no Word document built from it directly. The
+manuscript report — which tables, which figures, the clinical narrative —
+belongs in a sibling repo, `<study>-report`, created from
+[`omop-report-template`](https://github.com/Duke-Vascular-Informatics/omop-report-template)
+and cloned next to this one. It renders from this repo's result artifacts
+only (no database, no VPN, no credentials) via that repo's
+`R/extract_report_inputs.R`-equivalent writing `output/report_inputs/`.
+
+Create both repos together when starting a new study — see Path A in this
+repo's `CHECKLIST.md` and `omop-report-template`'s own `CHECKLIST.md`.
+
 ## Quick start
 
 ```bash
@@ -105,6 +121,10 @@ Read a real one alongside the template. They differ deliberately:
 
 ## Non-negotiables
 
+- **No reporting imports in this repo, ever.** `ggplot2`, `officer`, and
+  `flextable` belong in the sibling `<study>-report` repo (see above), not
+  here — an analysis-core repo importing any of them for reporting purposes
+  is the thing to notice and undo, not a style preference to skip.
 - **Rule 1 applies unchanged.** Every concept ID entering a cohort JSON passes the
   three-tier lookup and carries `[vocab query]`. Check
   `../phenotype_library/catalog.yaml` first.
