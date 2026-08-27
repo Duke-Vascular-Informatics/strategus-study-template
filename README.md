@@ -119,4 +119,4 @@ Read a real one alongside the template. They differ deliberately:
 
 ## License
 
-Apache 2.0, matching the other repos in this workspace.
+Copyright 2026 Duke University. All Rights Reserved. The software is hereby licensed under the GNU GPL License v2 (see [LICENSE](LICENSE)).
