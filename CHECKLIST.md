@@ -91,7 +91,7 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 - [ ] `CLAUDE.md` written as a **local wrapper** — first line points at
       `../CLAUDE.md` as the shared baseline, then local overrides only
 - [ ] OSF protocol project created if the study has one (**private**;
-      `Rscript ../scripts/osf_sync.R`)
+      `Rscript ../osf/osf_sync.R`)
 
 ---
 
