@@ -222,7 +222,7 @@ how the near-collision that prompted the 2026-08-13 widening was found.
 
 | Range | Repo | Notes |
 |---|---|---|
-| `9100001`–`9100011` | `pad-amp-nhd-prog` | NHD outcome (`9100001`, circe escape hatch) + 10 risk-score item cohorts |
+| `9100001`–`9100011` | `pad-amp-nhd-prog` (shared with `pad-amp-nhd-val`, its frozen validation-only fork as of 2026-09-07) | NHD outcome (`9100001`, circe escape hatch) + 10 risk-score item cohorts |
 | `9100101`–`9100199` | `pad-oler-ssi-prog` | Anderson SSI score items + wound-complication outcome subtypes |
 
 Leave a gap between claims rather than packing them — a study that grows by one
