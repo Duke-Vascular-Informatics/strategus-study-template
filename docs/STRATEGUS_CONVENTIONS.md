@@ -224,6 +224,7 @@ how the near-collision that prompted the 2026-08-13 widening was found.
 |---|---|---|
 | `9100001`–`9100011` | `pad-amp-nhd-prog` (shared with `pad-amp-nhd-val`, its frozen validation-only fork as of 2026-09-07) | NHD outcome (`9100001`, circe escape hatch) + 10 risk-score item cohorts |
 | `9100101`–`9100199` | `pad-oler-ssi-prog` | Anderson SSI score items + wound-complication outcome subtypes |
+| `9100201`–`9100299` | `pad-oler-var-char` | Procedure-characterization cohorts for OMOP-vs-manual-abstraction validation (reuses shared OLER target `9100101` from `pad-oler-ssi-prog` rather than re-deriving it) |
 
 Leave a gap between claims rather than packing them — a study that grows by one
 cohort should not have to interleave into another study's range.
