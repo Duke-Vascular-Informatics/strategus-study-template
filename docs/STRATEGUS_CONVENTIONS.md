@@ -223,6 +223,7 @@ how the near-collision that prompted the 2026-08-13 widening was found.
 | Range | Repo | Notes |
 |---|---|---|
 | `9100001`–`9100011` | `pad-amp-nhd-prog` (shared with `pad-amp-nhd-val`, its frozen validation-only fork as of 2026-09-07) | NHD outcome (`9100001`, circe escape hatch) + 10 risk-score item cohorts |
+| `9100021`–`9100049` | `pad-amp-nhd-val` (its own, post-fork) | Limit=All score-item cohorts added 2026-10-05 (`9100021`–`9100027`: DM, HTN, HF, CAD, pneumonia, ADL-dependent functional status, ambulatory status). `9100026`/`9100027` supersede `9100005`/`9100006`, which stay defined only in `pad-amp-nhd-prog` — a repo that shares ids must not redefine them, so a revised definition takes a new id in the revising repo's own range |
 | `9100101`–`9100199` | `pad-oler-ssi-prog` | Anderson SSI score items + wound-complication outcome subtypes |
 | `9100201`–`9100299` | `pad-oler-var-char` | Procedure-characterization cohorts for OMOP-vs-manual-abstraction validation (reuses shared OLER target `9100101` from `pad-oler-ssi-prog` rather than re-deriving it) |
 
