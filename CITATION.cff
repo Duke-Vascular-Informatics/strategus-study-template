@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this template in your research, please cite it using the metadata below."
+type: software
+title: "Strategus Study Template"
+abstract: >
+  A GitHub template repository for Strategus-based observational studies on an
+  OMOP CDM v5.4 SQL Server database. Cohorts are declarative circe definitions
+  executed by the OHDSI HADES Strategus framework, with a pinned renv
+  environment, a cohort manifest, and documented workspace conventions
+  (including a circe escape hatch) distilled from defects encountered in real
+  study runs. Layers on, and credits, OHDSI's upstream StrategusStudyRepoTemplate.
+authors:
+  - family-names: Johnson
+    given-names: Adam P.
+    name-suffix: MD, MPH
+    email: adam.johnson@duke.edu
+    orcid: https://orcid.org/0000-0002-3014-6372
+    affiliation: Duke University School of Medicine, Department of Surgery
+    # Secondary affiliation(s): Durham VA Medical Center
+    # CFF 1.2.0 does not support multiple affiliations per author entry.
+repository-code: "https://github.com/Duke-Vascular-Informatics/strategus-study-template"
+license: GPL-2.0-only
+keywords:
+  - OMOP CDM
+  - OHDSI
+  - HADES
+  - Strategus
+  - circe
+  - observational research
+  - reusable template
+references:
+  - type: software
+    title: "StrategusStudyRepoTemplate"
+    authors:
+      - name: "Observational Health Data Sciences and Informatics (OHDSI)"
+    repository-code: "https://github.com/ohdsi-studies/StrategusStudyRepoTemplate"
