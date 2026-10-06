@@ -56,7 +56,7 @@ without reading why.**
 ## The report is a separate repo
 
 A repo created from this template is the **analysis core only** (bucket 2 of
-`docs/MIGRATION_PLAN_REPO_SPLIT.md` in `omop-dev-workspace`) and must stay
+[charon's "Multi-Repo Analysis Pipeline" section](https://github.com/Duke-Vascular-Informatics/charon#multi-repo-analysis-pipeline)) and must stay
 Strategus-faithful: no `ggplot2`, `officer`, or `flextable` import for
 reporting purposes, ever, and no Word document built from it directly. The
 manuscript report — which tables, which figures, the clinical narrative —
