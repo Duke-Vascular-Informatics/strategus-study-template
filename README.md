@@ -1,5 +1,7 @@
 # strategus-study-template
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23190589.svg)](https://doi.org/10.5281/zenodo.23190589)
+
 GitHub template repository for **Strategus-based** observational studies on an
 OMOP CDM v5.4 SQL Server database in a
 [charon](https://github.com/Duke-Vascular-Informatics/charon)-based workspace.
@@ -138,6 +140,12 @@ Read a real one alongside the template. They differ deliberately:
   human-only steps.
 - **The `[DVI]` tooling is read-only.** Creating an ATLAS cohort is a separate,
   explicit, user-initiated action.
+
+## Funding
+
+Research reported in this publication was supported by the National Center For Advancing Translational Sciences of the National Institutes of Health under Award Number K12TR005435. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+
+---
 
 ## License
 
