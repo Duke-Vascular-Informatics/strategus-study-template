@@ -80,10 +80,10 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 
 ### 5. Real run
 - [ ] IRB scope confirmed
-- [ ] `PRCC_GITLAB_REMOTE` set in this repo's `.env` — the GitLab project must be
-      created by a human; `workflow/09` never invents one
-- [ ] `bash workflow/09_build_portable_analysis_bundle.sh`
-- [ ] Never `git subtree push`, never bare `git push gitlab`
+- [ ] Deployment bundle built and pushed by your institution's **site-deploy repo**
+      (bucket 4) — not from this repo. Any bundle remote is created by a human
+- [ ] Never `git subtree push` the bundle, never a bare `git push` of it to the
+      site's GitLab
 
 ### 6. Register the study
 - [ ] Added to `../studies.yaml`
@@ -145,9 +145,8 @@ This is the step that determines how hard the conversion is, so do it first.
 - [ ] `config.R` / `study_params.yaml` either deleted or **reduced to a minimal
       layer** — keep them only to hand a custom step or report the schema names,
       cohort ids and narrative metadata Strategus does not need (conventions §11)
-- [ ] `workflow/09_build_portable_analysis_bundle.sh` kept — `09` means
-      build-the-bundle workspace-wide, regardless of how many other numbered
-      steps survive
+- [ ] Any bundle-building step removed from the study repo — deployment belongs
+      to your institution's site-deploy repo (bucket 4)
 
 ### B4. Prove the conversion didn't change the science
 This is the part that is easy to skip and expensive to skip.

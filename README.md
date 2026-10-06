@@ -49,7 +49,7 @@ renv.lock                                Strategus 1.5.0, pinned — 209 package
 
 Module settings arrive with the known-good configuration already applied:
 Characterization's three SQL-Server-incompatible sub-analyses disabled,
-`runInclusionStatistics = FALSE` for Duke PRCC's backslash schema,
+`runInclusionStatistics = FALSE` for backslash-containing results schemas,
 `minPriorObservation = 0`, CohortDiagnostics scoped to analytic cohorts,
 CohortIncidence unstratified. Each carries a comment and a conventions
 cross-reference. **They are workarounds, not preferences — do not flip them

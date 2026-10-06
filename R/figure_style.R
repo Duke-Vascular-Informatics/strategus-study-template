@@ -65,7 +65,7 @@ library(patchwork)
 #
 # It is the preferred TIFF device (best text rendering), but it compiles
 # against system libraries — libpng, libtiff, freetype, harfbuzz, fribidi. The
-# portable bundle's installer only does `module load R` on the protected
+# deployment bundle's installer may only do `module load R` on a protected
 # analytic space and provisions no system packages, so ragg may legitimately
 # fail to install there. A hard library(ragg) would then abort the entire
 # analysis at load time over a figure-device preference, after every other

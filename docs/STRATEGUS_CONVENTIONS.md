@@ -136,8 +136,8 @@ re-attempt the repeated-specification approach.
 ## 3. `runInclusionStatistics = FALSE` on CohortDiagnostics
 
 `CohortGenerator::insertInclusionRuleNames` crashes on a results schema
-containing a backslash — which is exactly what Duke PRCC issues
-(`dhe\netid`). Inclusion attrition is still produced by the CohortGenerator
+containing a backslash — which is exactly what some Windows-domain
+secure analytic environments issue (`DOMAIN\username`). Inclusion attrition is still produced by the CohortGenerator
 module, so nothing is lost.
 
 ### 3.1 Scope CohortDiagnostics to analytic cohorts only
