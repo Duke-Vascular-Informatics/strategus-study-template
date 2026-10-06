@@ -10,9 +10,10 @@
 #   end. Row counts here are proof-of-signal on synthetic data only — they are
 #   NOT study results and must never be reported as such.
 #
-#   Real Duke patient data is not reachable from this dev container. The real run
-#   happens on Duke PRCC via the portable/ bundle built by
-#   workflow/09_build_portable_analysis_bundle.sh.
+#   Real patient data is not reachable from this dev container. The real run
+#   happens in your institution's secure analytic environment, via a deployment
+#   bundle built by your own site-deploy repo (bucket 4 of charon's
+#   Multi-Repo Analysis Pipeline) -- not by anything in this repo.
 #
 # INPUTS
 #   inst/<studyName>AnalysisSpecification.json   — from pipeline step 1
@@ -122,7 +123,7 @@ if (!dir.exists(file.path(outputLocation, databaseName))) {
   dir.create(file.path(outputLocation, databaseName), recursive = TRUE)
 }
 
-# Persisted so a failed run can be reproduced exactly, and so the PRCC bundle can
+# Persisted so a failed run can be reproduced exactly, and so a deployed bundle can
 # diff its own execution settings against the devcontainer's.
 ParallelLogger::saveSettingsToJson(
   object   = executionSettings,

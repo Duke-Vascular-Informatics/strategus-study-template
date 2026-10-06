@@ -45,7 +45,7 @@ The short list, in the order they bite:
 |---|---|
 | `includeRiskFactors` / `includeDechallengeRechallenge` / `includeCaseSeries` = `FALSE` | §2 — Characterization 3.0.1 emits `IFNULL()`, not a SQL Server built-in |
 | One `CharacterizationModule` spec per pipeline | §2.2 — repeated specs silently dedupe to the last one added |
-| `runInclusionStatistics = FALSE` | §3 — crashes on Duke PRCC's `dhe\netid` schema |
+| `runInclusionStatistics = FALSE` | §3 — crashes on a results schema containing a backslash (`DOMAIN\username`) |
 | `CohortDiagnostics` scoped to analytic cohorts | §3.1 — diagnosing covariate cohorts was ~88% of runtime |
 | `minPriorObservation = 0` | §2.1 — the 365d default silently drops patients |
 | Two-part `database.schema` | §4 — a bare name is read as the database name |
@@ -58,7 +58,6 @@ The short list, in the order they bite:
 | 0 | `scripts/render_cohort_sql.R` | circe JSON → `inst/sql/sql_server/*.sql`. Skips hand-authored SQL. |
 | 1 | `CreateStrategusAnalysisSpecification.R` | Builds `inst/<studyName>AnalysisSpecification.json`. Re-run after any change to `inst/` or module settings. |
 | 2 | `StrategusCodeToRun.R` | `Strategus::execute()` against the synthetic CDM overlay, then any post-execute repair and custom step. Fresh R session required. |
-| 9 | `workflow/09_build_portable_analysis_bundle.sh` | Duke GitLab deployment bundle. `09` means build-the-bundle workspace-wide, regardless of how many other numbered steps exist. |
 
 ### Things that will bite you
 
@@ -102,6 +101,6 @@ BRANCH=$(gh api user --jq .login)
 git push origin "$BRANCH"   # then open a PR into main
 ```
 
-Studies created from this template add their own Duke GitLab routing, handled
-solely by `workflow/09_build_portable_analysis_bundle.sh`. Never `git subtree
-push` or a bare `git push gitlab`.
+Deployment to an institution's secure analytic environment is not part of this
+repo — it is handled by that institution's own site-deploy repo (bucket 4). Never
+`git subtree push` a bundle or do a bare `git push` of it to the site's GitLab.

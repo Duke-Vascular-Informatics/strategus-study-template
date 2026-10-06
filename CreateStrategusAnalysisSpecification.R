@@ -17,7 +17,6 @@
 #   0  scripts/render_cohort_sql.R                    -> inst/sql/sql_server/*.sql
 #   1  THIS SCRIPT                                    -> inst/<studyName>...json
 #   2  StrategusCodeToRun.R                           -> Strategus::execute()
-#   9  workflow/09_build_portable_analysis_bundle.sh  -> Duke GitLab bundle
 #
 #   Re-run step 1 after ANY change to inst/cohorts/*.json, inst/Cohorts.csv, or
 #   the module settings below.
@@ -156,14 +155,15 @@ cohortGeneratorSpecs   <- cg$createModuleSpecifications(generateStats = TRUE)
 # diagnostics on it describe the placeholder and are actively misleading (§3.2).
 #
 # runInclusionStatistics = FALSE avoids CohortGenerator::insertInclusionRuleNames
-# crashing on Duke PRCC's backslash results schema (dhe\netid). Attrition still
+# crashing on a results schema containing a backslash (issued by some Windows-
+# domain secure environments, e.g. DOMAIN\username). Attrition still
 # comes from the CohortGenerator module. Conventions §3.
 diagnosticsCohortIds <- setdiff(c(targetId, outcomeIds), HAND_AUTHORED)
 
 cd <- CohortDiagnosticsModule$new()
 cohortDiagnosticsSpecs <- cd$createModuleSpecifications(
   cohortIds                         = diagnosticsCohortIds,
-  runInclusionStatistics            = FALSE,   # §3  — do not flip on Duke PRCC
+  runInclusionStatistics            = FALSE,   # §3  — do not flip where schemas contain a backslash
   runIncludedSourceConcepts         = TRUE,
   runOrphanConcepts                 = TRUE,
   runBreakdownIndexEvents           = TRUE,
