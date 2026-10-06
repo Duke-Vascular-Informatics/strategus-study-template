@@ -1,15 +1,17 @@
 # strategus-study-template
 
 GitHub template repository for **Strategus-based** observational studies on an
-OMOP CDM v5.4 SQL Server database in the Duke Vascular Informatics workspace.
+OMOP CDM v5.4 SQL Server database in a
+[charon](https://github.com/Duke-Vascular-Informatics/charon)-based workspace.
 
 Use this when cohort logic belongs in **declarative circe cohort definitions**
 (`inst/cohorts/*.json`) executed by the OHDSI HADES
 [Strategus](https://ohdsi.github.io/Strategus/) framework.
 
-Use [`synthea-omop-template`](https://github.com/Duke-Vascular-Informatics/synthea-omop-template)
-instead when you need the numbered `workflow/01–08` scaffold — Synthea generation,
-ETL, QC — or a `-synth` data-generation-only repo.
+This is the template for every analysis repo. If the study needs a synthetic
+dataset to develop against, generate it in a separate `-synth` repo created from
+[`synthea-omop-template`](https://github.com/Duke-Vascular-Informatics/synthea-omop-template)
+(Synthea generation, ETL, QC only — no analysis).
 
 ---
 
