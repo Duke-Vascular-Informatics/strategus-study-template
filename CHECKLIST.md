@@ -70,6 +70,20 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 ### 4. Synthetic pre-flight
 - [ ] Synthetic dataset chosen: `Rscript ../synthetic_data/scripts/lookup_dataset.R "<term>"`
       — check the registry before generating anything new
+- [ ] **This study registered as a consumer** of that dataset: listed in the `-synth`
+      repo's `consumers.yaml` (and under `used_by` in `../synthetic_data/registry.yaml`,
+      `consumes_dataset` in `../studies.yaml`). The `-synth` repo then checks this study's
+      own cohorts against the Synthea module before generating data and against the final
+      data (so regenerating the dataset cannot silently break this study)
+- [ ] `targetId` and `outcomeIds` in `CreateStrategusAnalysisSpecification.R` are plain
+      literal assignments (`targetId <- 9100011L`, `outcomeIds <- c(...)`); the `-synth`
+      QC reads them from that file. If you build them programmatically, state the ids in
+      the `-synth` repo's `consumers.yaml` instead
+- [ ] If the analysis depends on **discharge disposition**: `discharge_disposition_check: true`
+      on this study in `consumers.yaml` (its cohort is hand-authored SQL that Strategus
+      never runs, so the cohort check cannot see whether the dataset carries dispositions)
+- [ ] Cohorts that Synthea cannot generate are declared `expected_empty` there; anything
+      else that comes back empty is a gap in the module to fix, not to hide
 - [ ] View-overlay schema built (conventions §5)
 - [ ] Every `TODO [STUDY]` in `StrategusCodeToRun.R` resolved; `cohortTableName`
       unique across studies sharing the results schema

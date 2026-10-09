@@ -59,6 +59,9 @@ if (any(duplicated(cohortDefinitionSet$cohortId))) stop("*** duplicate cohort ID
 #   Use the real ATLAS id for ATLAS cohorts, or an id from the reserved local
 #   block for cohorts not yet in ATLAS. Conventions §6 holds the block's bounds
 #   and the allocation ledger — claim your range there before authoring.
+# Keep these as plain literal assignments: the -synth repo's consumer QC (consumers.yaml)
+#   reads targetId / outcomeIds from this file. If you must build them programmatically,
+#   state the ids in the -synth repo's consumers.yaml instead.
 targetId   <- 0L          # TODO [STUDY]
 outcomeIds <- c(0L)       # TODO [STUDY]
 

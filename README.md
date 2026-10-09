@@ -13,7 +13,9 @@ Use this when cohort logic belongs in **declarative circe cohort definitions**
 This is the template for every analysis repo. If the study needs a synthetic
 dataset to develop against, generate it in a separate `-synth` repo created from
 [`synthea-omop-template`](https://github.com/Duke-Vascular-Informatics/synthea-omop-template)
-(Synthea generation, ETL, QC only — no analysis).
+(Synthea generation, ETL, QC only — no analysis), and register this study as a consumer in
+that repo's `consumers.yaml` so its own cohorts are checked against the Synthea module before
+data is generated and against the final data.
 
 ---
 
