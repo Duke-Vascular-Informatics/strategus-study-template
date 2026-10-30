@@ -858,6 +858,46 @@
       "Maintainer": "Egill Fridgeirsson <e.fridgeirsson@erasmusmc.nl>",
       "Repository": "CRAN"
     },
+    "PhenotypeLibrary": {
+      "Package": "PhenotypeLibrary",
+      "Version": "3.37.0",
+      "Source": "GitHub",
+      "Type": "Package",
+      "Title": "The OHDSI Phenotype Library",
+      "Date": "2026-04-08",
+      "Author": "Gowtham Rao [aut, cre]",
+      "Maintainer": "Gowtham Rao <rao@ohdsi.org>",
+      "Description": "A repository to store the content of the OHDSI Phenotype library.",
+      "Depends": [
+        "R (>= 4.1.0)"
+      ],
+      "Imports": [
+        "checkmate",
+        "readr",
+        "stringr",
+        "dplyr",
+        "rlang"
+      ],
+      "Suggests": [
+        "reactable",
+        "testthat",
+        "knitr"
+      ],
+      "License": "Apache License",
+      "RoxygenNote": "7.3.3",
+      "Roxygen": "list(markdown = TRUE)",
+      "Encoding": "UTF-8",
+      "Language": "en-US",
+      "VignetteBuilder": "knitr",
+      "URL": "https://ohdsi.github.io/PhenotypeLibrary/, https://github.com/OHDSI/PhenotypeLibrary",
+      "BugReports": "https://github.com/OHDSI/PhenotypeLibrary/issues",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "OHDSI",
+      "RemoteRepo": "PhenotypeLibrary",
+      "RemoteRef": "main",
+      "RemoteSha": "40106e4e2892d883c208b9df10ad56711da3e21d"
+    },
     "R6": {
       "Package": "R6",
       "Version": "2.6.1",

@@ -63,13 +63,22 @@ Sys.setenv(DATABASECONNECTOR_JAR_FOLDER = "/workspace/synthea-omop-template/driv
 # TODO [STUDY]: replace the two schema defaults.
 #   cdm    -> the view-overlay schema from prerequisite 3, NOT the physical CDM
 #   work   -> this study's own results schema
+# envOr(): an environment variable's value, or `default` when it is unset OR
+# empty. Sys.getenv(unset = ) alone is not enough: a blank `NAME=` line in .env
+# (as older .env.example files shipped) sets the variable to "", which would
+# silently replace the default below with an empty schema name.
+envOr <- function(name, default) {
+  value <- Sys.getenv(name, unset = "")
+  if (nzchar(value)) value else default
+}
+
 cdmDatabaseSchema <- paste0(
   Sys.getenv("OMOP_DATABASE"), ".",
-  Sys.getenv("OMOP_CDM_SCHEMA_OVERRIDE", unset = "my_study_cdm_shared")
+  envOr("OMOP_CDM_SCHEMA_OVERRIDE", "my_study_cdm_shared")
 )
 workDatabaseSchema <- paste0(
   Sys.getenv("OMOP_DATABASE"), ".",
-  Sys.getenv("OMOP_RESULTS_SCHEMA_OVERRIDE", unset = "my_study_results")
+  envOr("OMOP_RESULTS_SCHEMA_OVERRIDE", "my_study_results")
 )
 
 # TODO [STUDY]: cohortTableName must be unique across studies sharing a results
