@@ -26,16 +26,22 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 - [ ] `docs/UsingThisTemplate.md` / `docs/StudyExecution.md` (upstream OHDSI) skimmed
 
 ### 1. Concept sets — Rule 1, before any cohort JSON exists
-- [ ] Tier 1a: `Rscript ../phenotype_library/scripts/check_pl.R "<term>"`
-- [ ] Tier 1b: `Rscript ../phenotype_library/scripts/check_dvi.R "<term>"` —
+> **Run every command in this section from the workspace root** (`cd /workspace`
+> in the dev container), not from this study folder. The `phenotype_library/` and
+> `scripts/` tools live at the root and use the root `renv` library (which has
+> `PhenotypeLibrary`); `../` paths only resolve from one level down and the study's
+> own `renv` does not carry that package.
+
+- [ ] Tier 1a: `Rscript phenotype_library/scripts/check_pl.R "<term>"`
+- [ ] Tier 1b: `Rscript phenotype_library/scripts/check_dvi.R "<term>"` —
       **authoritative** for this workspace
-- [ ] Tier 2: `Rscript ../phenotype_library/scripts/lookup_catalog.R "<term>"`
+- [ ] Tier 2: `Rscript phenotype_library/scripts/lookup_catalog.R "<term>"`
 - [ ] Tier 3 only if 1 and 2 both miss:
-      `Rscript ../scripts/concept_lookup.R "<term>" [domain]`
+      `Rscript scripts/concept_lookup.R "<term>" [domain]`
 - [ ] Every concept ID tagged `[vocab query]` with its query date
-- [ ] New concept sets registered in `../phenotype_library/catalog.yaml`; this
+- [ ] New concept sets registered in `phenotype_library/catalog.yaml`; this
       study added to each entry's `used_by`
-- [ ] `Rscript ../phenotype_library/scripts/check_overlap.R --concept-ids <ids>`
+- [ ] `Rscript phenotype_library/scripts/check_overlap.R --concept-ids <ids>`
       run before registering anything as new
 
 ### 2. Cohorts

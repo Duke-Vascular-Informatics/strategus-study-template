@@ -14,6 +14,12 @@ Shared baseline (applies first):
 - **This repo is a GitHub template, not a study.** It has no cohorts, no concept
   IDs, and no analysis. Do not add real concept IDs, cohort JSON, or study
   content to it — those belong in a repo created *from* it.
+- **Working directory.** Run workspace-level tools (`phenotype_library/scripts/*`,
+  `scripts/concept_lookup.R`, `docker exec` Rscript calls) from the **workspace
+  root** (`/workspace` in the container) with root-relative paths. Never use
+  `../` paths for them. Run this study's own scripts
+  (`CreateStrategusAnalysisSpecification.R`, `StrategusCodeToRun.R`) from the
+  study folder.
 - **Layout is Strategus, not `synthea-omop-template`.** Root-level spec builder
   and runner, `inst/` for cohorts, `R/` is `source()`d rather than installed.
   There is **no `workflow/01–08`** and **no `synthea/`**.
