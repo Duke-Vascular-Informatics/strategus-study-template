@@ -74,7 +74,7 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 - [ ] `Rscript CreateStrategusAnalysisSpecification.R` — clean
 
 ### 4. Synthetic pre-flight
-- [ ] Synthetic dataset chosen: `Rscript ../synthetic_data/scripts/lookup_dataset.R "<term>"`
+- [ ] Synthetic dataset chosen: `Rscript synthetic_data/scripts/lookup_dataset.R "<term>"`
       — check the registry before generating anything new
 - [ ] **This study registered as a consumer** of that dataset: listed in the `-synth`
       repo's `consumers.yaml` (and under `used_by` in `../synthetic_data/registry.yaml`,
@@ -111,7 +111,7 @@ Read [docs/STRATEGUS_CONVENTIONS.md](docs/STRATEGUS_CONVENTIONS.md) before eithe
 - [ ] `CLAUDE.md` written as a **local wrapper** — first line points at
       `../CLAUDE.md` as the shared baseline, then local overrides only
 - [ ] OSF protocol project created if the study has one (**private**;
-      `Rscript ../osf/osf_sync.R`)
+      `Rscript osf/osf_sync.R`)
 
 ---
 
