@@ -25,6 +25,7 @@ authors:
     # CFF 1.2.0 does not support multiple affiliations per author entry.
 repository-code: "https://github.com/Duke-Vascular-Informatics/strategus-study-template"
 license: GPL-2.0-only
+date-released: "2026-11-02"
 doi: 10.5281/zenodo.23190589
 keywords:
   - OMOP CDM
